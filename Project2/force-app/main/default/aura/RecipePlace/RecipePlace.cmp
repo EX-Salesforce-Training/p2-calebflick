@@ -1,0 +1,45 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="RecipePlaceController">
+    
+    <aura:attribute name="dish" type="String"/>
+    <aura:attribute name="ingredients" type="String"/>
+    <aura:attribute name="recipeList" type="Map[]" default="[]"/>
+    
+    <div class="slds-align_absolute-center">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <span>
+                    <lightning:input name="dishInput" label="Dish" value="{!v.dish}"/>
+                </span>
+            </div>
+            <div class="slds-col">
+                <span>
+                    <lightning:input name="ingredientsInput" label="Specific Ingredients" value="{!v.ingredients}"/>
+                </span>
+            </div>
+            <div class="slds-col">
+                <span>
+                    <br/>
+                    <lightning:button variant="brand" label="Search" title="Search" onclick="{!c.searchForRecipes}"/>
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="slds-align_absolute-center">
+        <div class="slds-grid slds-grid_vertical">
+            <br/>
+            <aura:iteration items="{!v.recipeList}" var="r" indexVar="index">
+                <div class="slds-col">
+                    <span>
+                        <br/>
+                        <div><h3>{!r.value.title}</h3></div>
+                        <div><lightning:formattedURL value="{!r.value.href}"/></div>
+                        <div>Ingredients: {!r.value.ingredients}.</div>
+                        <lightning:button variant="brand-outline" label="Save" title="Save" onclick="{!c.saveRecipe}" name="{!index}"/>
+                    </span>
+                </div>
+            </aura:iteration>
+        </div>
+    </div>
+    
+</aura:component>
